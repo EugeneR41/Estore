@@ -1,0 +1,12 @@
+form .helptext {
+    font-size: 12px;
+    color: #ccc;
+}
+
+form ul {
+    display: none;
+}
+
+.notification.space-below {
+    margin-bottom: 20px;
+}
