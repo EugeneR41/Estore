@@ -9,7 +9,12 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_PRELOAD = True
+CSRF_COOKIE_SECURE = True
 STRIPE_API_KEY_PUBLISHABLE = "pk_test_51IGiqjDhuUWahkoAKQ9ag5hxtEmZHFODZtYrKRxYQy1Y6cUxrv1K4Y3O1NOExCqHJTe7zJZpC1u78cYpF6baDp4S00TlvOdyel"
 STRIPE_API_KEY_HIDDEN = "sk_test_51IGiqjDhuUWahkoA4VAuwfExhweCKtx2sWtW4mFLKNWZcl7f9KJcq9ey7aiIAn8uIPJjWF7SwChJIZr3uZI8Nf4k00ujvzgU1c"
 
@@ -27,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'xez&n1mha_tj0v$5lp=&w8jnqiwycprv(lo&m71h$eknobz=c9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -62,17 +67,17 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'djangoProject.urls'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -108,7 +113,7 @@ DATABASES = {
 
 
 DISABLE_COLLECTSTATIC=1
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
