@@ -39,8 +39,8 @@ def create_checkout_session(request):
         payment_method_types=['card'],
         line_items=items,
         mode='payment',
-        success_url='estoredjango.herokuapp.com/cart/success/',
-        cancel_url='estoredjango.herokuapp.com/cart/'
+        success_url='https://estoredjango.herokuapp.com//cart/success/',
+        cancel_url='https://estoredjango.herokuapp.com//cart/'
     )
 
     # Create order
