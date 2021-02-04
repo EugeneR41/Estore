@@ -106,7 +106,7 @@ DATABASES = {
 
 
 
-
+DISABLE_COLLECTSTATIC=1
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 # Password validation
